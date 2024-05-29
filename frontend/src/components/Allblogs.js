@@ -10,7 +10,7 @@ const Allblogs=()=>{
 
     useEffect(()=>{
       // setBlogdata(()=>blogdata[0]?blogdata:(localStorage.getItem('blogdata')?JSON.parse(localStorage.getItem('blogdata')):[]))
-      axios.get(`http://127.0.0.1:8000/userposts/?query=${userprofile?.cbuid}`)
+      axios.get(`https://127.0.0.1:8000/userposts/?query=${userprofile?.cbuid}`)
       .then(response => {
         setBlogdata(response.data);
       })
