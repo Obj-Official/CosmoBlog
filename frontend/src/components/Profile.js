@@ -10,7 +10,7 @@ const Profile=()=>{
         <div align='center'>
             <div id="outerprofilediv">
             <div id="profilediv" align='left'>
-                <p id="personicon" align='center'><IoPerson/></p> 
+                <div><img id="personicon"  src={userprofile?.profile_image_base64} alt="display image" width="150" /></div> 
                 <h3>{userprofile?userprofile.first_name+ ' ' +userprofile.last_name+ ' || ' +userprofile.username
                 :<p></p>}</h3>
                 <p className="alternates beside"><IoBriefcaseSharp/>{userprofile?' '+userprofile.expertise:<p></p>}</p>

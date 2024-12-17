@@ -7,14 +7,14 @@ class PostsSerializer(serializers.ModelSerializer):
     class Meta:
         model =   Posts
         fields = (
-            'title', 'tag', 'cbuid', 'body', 'created_at'
+            'title', 'tag', 'cbuid', 'body', 'created_at', "image1"
         )
 
 class CosmobloguserSerializer(serializers.ModelSerializer):       
     class Meta:
         model =   Cosmobloguser
         fields = (
-            'first_name', 'last_name' , 'username' , 'email', 'expertise', 'cbuid', 'password', 'description'
+            'first_name', 'last_name' , 'username' , 'email', 'expertise', 'cbuid', 'password', 'description','profile_image_base64'
         )
 
 

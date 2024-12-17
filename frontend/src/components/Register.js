@@ -100,17 +100,6 @@ const Register=()=>{
     };
     
     function RegisterUser() {   
-        const userFormData = new FormData();
-        userFormData.append('first_name', firstname);
-        userFormData.append('last_name', lastname);
-        userFormData.append('username', username);
-        userFormData.append('email', email);
-        userFormData.append('expertise', expertise);
-        userFormData.append('cbuid', 'create');
-        userFormData.append('password', password);
-        userFormData.append('description', description);
-        userFormData.append('profile_picture', image);
-
         axios.post(backendUrl, {         
           first_name: firstname,         
           last_name: lastname,
@@ -119,7 +108,8 @@ const Register=()=>{
           expertise: expertise,
           cbuid: "create",
           password: password,
-          description: description
+          description: description,
+          profile_image_base64: imageURL
         })       
           .then((response) => {         
             setUserdata(response.data);       
@@ -134,49 +124,38 @@ const Register=()=>{
             <div id="regwrapper" align='left'><br/>
             <h3 id="regwelcome">Welcome to CosmoBlog!<br/>Register your account</h3>
             <div>
-                <div className="itm-cont">
-                    <span>
-                    <p className='labeltxt'>First Name</p>
+                <div className="input-container">
+                    <label className='labeltxt'>First Name</label><br/>
                     <input type='text' onChange={event =>setFirstname(event.target.value)} value={firstname} placeholder='Enter your First name' className="nametxt" maxLength={150}></input>
-                    </span>
-                    <span>
-                    <p className='labeltxt'>Last Name</p>
-                    <input type='text' onChange={event =>setLastname(event.target.value)} value={lastname} placeholder='Enter your Last name' className="nametxt" maxLength={150}></input><br/><br/>
-                    </span>
                 </div>
-                <div className="itm-cont">
-                    <span>
-                    <p className='labeltxt'>Email</p>
+                <div className="input-container">
+                    <label className='labeltxt'>Last Name</label><br/>
+                    <input type='text' onChange={event =>setLastname(event.target.value)} value={lastname} placeholder='Enter your Last name' className="nametxt" maxLength={150}></input>
+                </div>
+                <div className="input-container">
+                    <label className='labeltxt'>Email</label><br/>
                     <input type='email' onChange={event =>{setEmail(event.target.value); CheckEmail()}} value={email} placeholder='Enter your Email' className="nametxt" maxLength={254}></input>
-                    </span>
-                    <span>
-                    <p className='labeltxt'>Username</p>
-                    <input type='text' onChange={event =>{setUsername(event.target.value); CheckUsername()}} value={username} placeholder='Create a User-name' className="nametxt" maxLength={150}></input>
-                    </span>
                 </div>
-                <div className="itm-cont">
-                <p></p> <p></p> 
-                {username === ''? <p id="usernamevalid"></p>: username.length < 3?<p id="usernamenotvalid"><IoCloseCircle/>username can't be less than 3 characters</p>: usernamevalid === true? <p  id="usernamevalid"><IoCheckmarkCircle/>username is valid </p>:<p id="usernamenotvalid"><IoCloseCircle/>username already taken</p>}<br/><br/>  
-                </div>
-                <div className="itm-cont">
-                    <span>
-                    <p className='labeltxt'>Specialization</p>
+                <div className="input-container">
+                    <label className='labeltxt'>Specialization</label><br/>
                     <input type='text' onChange={event =>setExpertise(event.target.value)} value={expertise} placeholder='Enter your Occupation/Specialization' className="nametxt" maxLength={100}></input>
-                    </span>
-                    <span>
-                    <p className='labeltxt'>Description</p>
-                    <textarea onChange={event =>setDescription(event.target.value)} value={description} placeholder='Enter a short description of yourself' className="nametxt" maxLength={1000}></textarea><br/><br/>
-                    </span>
                 </div>
-                <div className="itm-cont">
-                    <span>
-                    <p className='labeltxt'>Password</p>
+                <div className="input-container">
+                    <label className='labeltxt'>Username</label><br/>
+                    <input type='text' onChange={event =>{setUsername(event.target.value); CheckUsername()}} value={username} placeholder='Create a User-name' className="nametxt" maxLength={150}></input>                   
+                    {username === ''? <p id="usernamevalid"></p>: username.length < 3?<p id="usernamenotvalid"><IoCloseCircle/>username can't be less than 3 characters</p>: usernamevalid === true? <p  id="usernamevalid"><IoCheckmarkCircle/>username is valid </p>:<p id="usernamenotvalid"><IoCloseCircle/>username already taken</p>} 
+                </div>
+                <div className="input-container">
+                    <label className='labeltxt'>Description</label><br/>
+                    <textarea onChange={event =>setDescription(event.target.value)} value={description} placeholder='Enter a short description of yourself' className="nametxt desc" maxLength={1000}></textarea>
+                </div>
+                <div className="input-container">
+                    <label className='labeltxt'>Password</label><br/>
                     <input type="password" onChange={event =>setPassword(event.target.value)} value={password} placeholder='Enter Password' className="nametxt" maxLength={120}></input>
-                    </span>
-                    <span>
-                    <p className='labeltxt'>Confirm Password</p>
-                    <input type="password" onChange={event =>setPassword2(event.target.value)} value={password2} placeholder='Re-enter Password' className="nametxt" maxLength={120}></input><br/><br/>
-                    </span>
+                </div>
+                <div className="input-container">
+                    <label className='labeltxt'>Confirm Password</label><br/>
+                    <input type="password" onChange={event =>setPassword2(event.target.value)} value={password2} placeholder='Re-enter Password' className="nametxt" maxLength={120}></input>
                 </div>
             </div>
             <p className='labeltxt'>Choose Profile Picture</p>

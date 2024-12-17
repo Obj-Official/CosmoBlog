@@ -1,7 +1,16 @@
 .App {
   text-align: center;
 }
-
+.nav-child{
+  width: 30%;
+  color: white;
+  padding: 5px 0px;
+  font-size: 20px;
+}
+.child3{
+  display: flex;
+  justify-content: space-between;
+}
 #navbardiv{
   box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
   background-color: rgb(130, 0, 52);
@@ -9,27 +18,29 @@
   display: flex;
   justify-content: space-between;
   font-size: 18px;
+  padding: 10px;
 }
 #logo{
   max-width: 140px;
   display: inline;
-  padding-top: 5px;
-  margin: 10px 0px 0px 10px;
 }
-.panelitem{
+.option-icon{
   display: inline-block;
-  padding: 0px 15px;
+  padding: 10px 15px;
   border-radius: 5px;
   transition: all 0.3s ease-in-out 0s;
 }
-.panelitem:hover{
+.option-icon:hover{
   background-color: rgb(100, 0, 40);
+}
+.search-small{
+  display: none;
 }
 .searchdiv{
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  width: 200px;
+  width: 180px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 8px 10px;
   z-index: 1;
@@ -47,40 +58,47 @@
   display: block;
 }*/
 #searchbox{
-  max-width: 200px;
   min-width: 70px;
-  width: 150px;
-  height: 20px;
+  width: 200px;
+  padding-left: 10px;
+  height: 40px;
   border-radius: 20px 0px 0px 20px;
   border: none;
   outline: none;
-  margin: 2px;
-  padding: 2px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 #searchbtn{
   border: none;
-  height: 20px;
+  height: 40px;
   border-radius: 0px 20px 20px 0px;
-  margin: 2px;
+  margin-left: 2px;
 }
 .panel{
   padding: 5px;
   color: white;
 }
-.dropdown-content{
+#dropdown-bg{
   display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.dropdown-content{
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 8px 10px;
-  z-index: 2;
   font-family: verdana;
   background-color: black;
   color: white;
   opacity: 80%;
   overflow: auto;
   font-size: 13px;
+  margin-top: 60px;
   border-radius: 10px 0px 0px 10px;
   right: -10px;
   transition: all 0.9s ease-in-out 0s;
@@ -106,7 +124,7 @@
   background-image: url('Data/pen.jpg');
   background-size: cover;
   width: 100%;
-  height: 450px;
+  height: 500px;
 }
 h1{
   color: rgb(130, 0, 52);
@@ -212,7 +230,8 @@ h1{
   animation: type 4s steps(60, end);
 }
 @keyframes type{
-  from{width: 0;
+  from{
+    width: 0;
     border-color: black;
     border-style: solid;
     border-width: 0px 2.5px 0px 0px;
@@ -233,6 +252,7 @@ h1{
   animation: fadeInAnimation ease 2s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 #allthemes{
   justify-content: space-between;
@@ -354,11 +374,11 @@ footer{
 }
 /*login and register*/
 #loginwrapper{
+  margin: 50px;
   width: 60%;
   height: auto;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 20px;
-  margin: 15px;
   border-radius: 20px;
 }
 .labeltxt{
@@ -375,11 +395,15 @@ footer{
 }
 .nametxt{
   border: 1px solid rgb(130, 0, 52);
-  min-width: 100px;
+  width: 300px;
   height: 40px;
   border-radius: 15px;
   padding: 0px 5px;
   outline: none;
+}
+.desc{
+  width: 1000px;
+  height: 100px;
 }
 #usernamevalid{
   color: green;
@@ -427,7 +451,7 @@ footer{
   width: 70%;
 }
 #regwrapper{
-  width: 70%;
+  width: 90%;
   height: auto;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 20px;
@@ -436,6 +460,11 @@ footer{
 }
 #regwelcome{
   color: rgb(130, 0, 52);
+}
+.input-container{
+  display: inline-block;
+  margin: 20px 10px;
+  height: 100px;
 }
 #regbtn{
   background-color: rgb(130, 0, 52);
@@ -457,12 +486,18 @@ footer{
 .mkpost{
   display: inline-block;
 }
-.titletxt{
+.titletxt, .list{
   border: 1px solid rgb(130, 0, 52);
-  min-width: 220px;
+  width: 700px;
   height: 40px;
-  border-radius: 15px;
+  border-radius: 5px;
   padding: 0px 5px;
+  margin: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.list{
+  width: 280px;
+  height: 42px;
 }
 #tagselect{
   border: 1px solid rgb(130, 0, 52);
@@ -493,10 +528,12 @@ footer{
 }
 #blogbox{
   width: 80%;
-  min-height: 300px;
+  height: 300px;
   padding: 5px;
   border: 1px solid rgb(130, 0, 52);
-  border-radius: 10px;
+  border-radius: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  line-height: 20px;
 }
 #info-panel{
   font-family: 'Courier New', Courier, monospace;
@@ -516,10 +553,42 @@ footer{
 #postdiv{
   width: 90%;
 }
+.theme-img{
+  width: 100%;
+  border-radius: 20px;
+}
+#fileInput{
+  display: none;
+}
+.add-img{
+  display: inline-block;
+  border: 1px solid rgb(169, 169, 169);
+  font-size: 20px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.blog-theme-label{
+  width: 80%;
+  display: block;
+  align-items: center;
+  padding: 10px 5px;
+  margin: 10px;
+  background-color: whitesmoke;
+  color: rgb(169, 169, 169);
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 #postcontent{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 14px;
   line-height: 25px;
+  text-align: justify;
 }
 #blogitem{
   width: 90%;
@@ -554,9 +623,70 @@ footer{
   width: 70%;
 }
 #personicon{
-  font-size: 40px;
-  border: 2px solid black;
   border-radius: 100px;
   width: 100px;
   height: auto;
+  margin-top: 20px;
+}
+@media (max-width: 880px){
+  .search-cont{
+    display: none;
+  }
+  .search-small{
+    display: block;
+  }
+  .child3{
+    justify-content: space-around;
+    width: 26%;
+  }
+  #logo{
+    width: 100px;
+    margin-top: 10px;
+  }
+  #navbardiv{
+    padding: 2px;
+  }
+  #searchbox{
+    width: 150px;
+    height: 30px;
+  }
+  #searchbtn{
+    height: 30px;
+  }
+  .option-icon{
+    padding: 7px 12px;
+  }
+  #intro{
+    font-size: 9px;
+    width: 40em;
+    margin-left: -10px;
+  }
+  #creators{
+    overflow: hidden;
+    white-space: inherit;
+    width: 90%;
+    animation: fadeInAnimation ease 2s;
+  }
+  h1{
+    font-size: 30px;
+  }
+  .titletxt, .list{
+  width: 300px;
+  }
+  .nametxt{
+    width: 250px;
+  }
+  #regwrapper{
+    width: 80%;
+  }
+  #loginwrapper{
+    margin: 30px;
+    width: 80%;
+    padding: 15px;
+  }
+  .themedivs{
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+  }
 }

@@ -5,11 +5,12 @@ import axios from "axios";
 
 
 const Searchblogs=({searchparam})=>{
+    const backendURL = "http://127.0.0.1:8000"
     const {setCurrentblog, blogdata, setBlogdata} = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(()=>{
-      axios.get(`http://127.0.0.1:8000/searchposts/?query=${searchparam}`)
+      axios.get(`${backendURL}/searchposts/?query=${searchparam}`)
           .then(response => {
             setBlogdata(response.data);
           })

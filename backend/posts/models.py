@@ -12,14 +12,14 @@ class Posts(models.Model):
     cbuid = models.CharField(max_length=50)
     body = models.CharField(max_length=1000000)
     created_at = models.DateTimeField(default=datetime.now, blank=True)
-    image1 = models.ImageField(upload_to='images/')
+    image1 = models.TextField(blank=True, null=True)
     image2 = models.ImageField(upload_to='images/')
 
 class Cosmobloguser(AbstractUser):
     expertise = models.CharField(max_length=100)
     cbuid = models.CharField(max_length=50)
     description = models.CharField(max_length=1000)
-    profile_picture = models.ImageField(upload_to='images/')
+    profile_image_base64 = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.username

@@ -6,13 +6,14 @@ import axios from "axios";
 const Featureblogs =()=>{
     const {setCurrentblog, blogdata, setBlogdata, feature} = useContext(AuthContext);
     const navigate = useNavigate();
+    const backendURL = "http://127.0.0.1:8000"
     //when any of the feature is clicked in home page the feature is set and a link takes you here
     //this page then use the value stored in the feature to filter out all blogs with that feature
     //this is done by the following axios call to the backend
 
     
     useEffect(()=>{
-        axios.get(`http://127.0.0.1:8000/searchpoststag/?query=${feature}`)
+        axios.get(`${backendURL}/searchpoststag/?query=${feature}`)
             .then(response => {
               setBlogdata(response.data);
             })

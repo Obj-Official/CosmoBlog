@@ -8,30 +8,30 @@ const Login=()=>{
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    useEffect(()=>{
-        document.getElementById('loginbtn').disabled = true;
-    },[])
+    // useEffect(()=>{
+    //     document.getElementById('loginbtn').disabled = true;
+    // },[])
 
     useEffect(()=>{
         user?navigate('/'):<p></p>;
     },[])
 
-    const CheckEntry =()=>{
-        if (username.length>=3){
-            if (password!==''){
-                document.getElementById('loginbtn').disabled = false;
-            }else{document.getElementById('loginbtn').disabled = true;}
-        }else{document.getElementById('loginbtn').disabled = true;}
-    }
+    // const CheckEntry =()=>{
+    //     if (username.length>=3){
+    //         if (password!==''){
+    //             document.getElementById('loginbtn').disabled = false;
+    //         }else{document.getElementById('loginbtn').disabled = true;}
+    //     }else{document.getElementById('loginbtn').disabled = true;}
+    // }
 
     return (
         <div align='center'>
             <form onSubmit={loginUser} id="loginwrapper">
                 <h3 className='labeltxt'>Login</h3><br/><br/>
                 <p className='labeltxt'>Username</p>
-                <input type='text' name='username' onChange={event =>{setUsername(event.target.value); CheckEntry()}} value={username} placeholder='Enter your Username' className="nametxt"/><br/><br/>
+                <input type='text' name='username' onChange={event =>{setUsername(event.target.value);}} value={username} placeholder='Enter your Username' className="nametxt" required/><br/><br/>
                 <p className='labeltxt'>Password</p>
-                <input type="password" name="password" onChange={event =>{setPassword(event.target.value); CheckEntry()}} value={password} placeholder='Enter Password' className="nametxt"/><br/>
+                <input type="password" name="password" onChange={event =>{setPassword(event.target.value); }} value={password} placeholder='Enter Password' className="nametxt" required/><br/>
                 <input type="submit"  id="loginbtn"></input><br/>
                 <b><p className="alternates">Don't have an account? <Link to='/register'>Signup</Link></p></b>
             </form>

@@ -1,12 +1,13 @@
 import { useState, useContext, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { IoChevronDownOutline } from "react-icons/io5";
+import { IoChevronDownOutline, IoInformationCircle } from "react-icons/io5";
 import axios from "axios";
 import AuthContext from "../utils/Context";
 
 
 const Makepost=()=>{
     const backendUrl = 'http://127.0.0.1:8000/posts';
+    const backendURL = "http://127.0.0.1:8000"
     const {user, userprofile, setUserprofile, setCurrentblog} = useContext(AuthContext);
     const [title, setTitle] = useState(null);
     const [body, setBody] = useState(null);
@@ -14,16 +15,29 @@ const Makepost=()=>{
     const navigate = useNavigate(null);
     const userid = userprofile?userprofile.cbuid:'';
     const tagx = document.getElementById("tagdiv");
+    const [image, setImage] = useState(null);
+    const [imageURL, setImageURL] = useState(null);
+
+    const handleImageUpload = (event) => {
+            const file = event.target.files[0];
+            setImage(file);
+            const reader = new FileReader();
+            reader.onload = () => {
+                setImageURL(reader.result);
+            };
+            reader.readAsDataURL(file);
+        };
+
+    const postInfo =() => alert("Title must have at least three words, a theme must be selected and blog post must have at least 20 words, theme image is optional.")
     
     useEffect(()=>{//get the user details with the user's username
-        axios.get(`http://127.0.0.1:8000/setuser/?query=${user.username}`)
+        axios.get(`${backendURL}/setuser/?query=${user.username}`)
             .then(response => {
                 setUserprofile(response.data);
               })
               .catch(error => {
                 console.error(error);
               });
-             
             },[]);
     
     useEffect(()=>{
@@ -35,17 +49,11 @@ const Makepost=()=>{
     },[body, title, tag])
 
     const HandleTag=()=>{
-        //iterates through the tag options and sets the value of the tag selected
-        let tagtype = document.getElementsByName('tagoption');
-        for (let i=0; i<tagtype.length; i++){
-            if (tagtype[i].checked)
-                setTag(tagtype[i].value);
-        }
+        setTag(document.querySelector('select[name="tag"]')?.value);
     }
 
     useEffect(()=>{
         HandleTag();//on selecting tag value set the tag value
-        tag?tagx.style.display = "none":<p></p>;//then make tag list become invisible
     },[tag])
 
     window.addEventListener('beforeunload',
@@ -63,7 +71,8 @@ const Makepost=()=>{
           title: title,         
           body: body,
           tag: tag,
-          cbuid: userid
+          cbuid: userid,
+          image1: imageURL
         })       
           .then((response) => {         
             setCurrentblog(response.data);       
@@ -74,25 +83,40 @@ const Makepost=()=>{
 
     return (
         <div>
+            <div align="right" width="80%" onClick={postInfo}><IoInformationCircle/></div>
             <div className="mkpost">
-                <p className='labeltxt'>Title</p><br/>
-                <input type="text" onChange={event =>setTitle(event.target.value)}  placeholder="Enter a 'catchy' Title" className='titletxt' value={title} maxLength={100}></input><br/>
+                <label className='labeltxt'>Title</label><br/>
+                <input type="text" onChange={event =>setTitle(event.target.value)}  placeholder="Enter a 'catchy' Title" className='titletxt' value={title} maxLength={100} required/><br/>
             </div>
             <div className="mkpost">
-                <p className='labeltxt'>Select tag</p><br/>
-                <div id="tagselect" onClick={()=>{tagx.style.display = "block"}}><p id="tagtxt">{tag? tag: "Select a tag"}</p><IoChevronDownOutline/>
-                <div id="tagdiv">
-                    <li><input type='radio' className='tagoptions' onClick={()=>{HandleTag()}} name="tagoption" value={'Science'}></input>Science</li><br/>
-                    <li><input type='radio' className='tagoptions' onClick={()=>{HandleTag()}} name="tagoption" value={'Entertainment'}></input>Entertainment</li><br/>
-                    <li><input type='radio' className='tagoptions' onClick={()=>{HandleTag()}} name="tagoption" value={'Lifestyle'}></input>Lifestyle</li><br/>
-                    <li><input type='radio' className='tagoptions' onClick={()=>{HandleTag()}} name="tagoption" value={'Politics'}></input>Politics</li><br/>
-                    <li><input type='radio' className='tagoptions' onClick={()=>{HandleTag()}} name="tagoption" value={'Tech'}></input>Tech</li><br/>
-                    <li><input type='radio' className='tagoptions' onClick={()=>{HandleTag()}} name="tagoption" value={'Fashion'}></input>Fashion</li><br/>
-                    <li><input type='radio' className='tagoptions' onClick={()=>{HandleTag()}} name="tagoption" value={'Travel'}></input>Travel</li><br/>
-                    <li><input type='radio' className='tagoptions' onClick={()=>{HandleTag()}} name="tagoption" value={'Sports'}></input>Sports</li><br/>
-                    </div>
+                <label className='labeltxt'>Select tag</label><br/>
+                <select name="tag" className="list" onChange={HandleTag} required>
+                    <option value="">--Select a tag--</option>
+                    <option value="Science">Science</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Lifestyle">Lifestyle</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Politics">Politics</option>
+                    <option value="Tech">Tech</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Sports">Sports</option>
+                </select>
+            </div>
+            <input type="file" id="fileInput" onChange={handleImageUpload}/>
+            {/* <!-- Custom label to trigger file input --> */}
+            <center>
+            <label for="fileInput" class="blog-theme-label" align="center">
+                    <span className="add-img">+</span><br/>
+                <span>Add Blog Theme Image</span>
+            </label>
+            {image && (
+                <div>
+                <h3>Selected Image:</h3>
+                <img src={imageURL} alt="Selected" width="150" />
                 </div>
-            </div>
+            )}
+            </center>
             <div className="mkpostbox">
                 <p className='labeltxt'>Content</p><br/>
                 <textarea onChange={event =>setBody(event.target.value)} placeholder="Start writing your blog" id="blogbox" value={body} maxLength={1000000}></textarea>
